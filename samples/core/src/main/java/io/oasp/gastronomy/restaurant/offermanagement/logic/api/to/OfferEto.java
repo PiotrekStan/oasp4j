@@ -105,4 +105,5 @@ public class OfferEto extends MenuItemEto implements Offer {
 
     this.state = state;
   }
+
 }

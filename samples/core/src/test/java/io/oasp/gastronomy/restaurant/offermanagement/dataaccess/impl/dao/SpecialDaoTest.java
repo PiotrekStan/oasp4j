@@ -5,6 +5,7 @@ import static org.junit.Assert.assertNotNull;
 
 import java.time.DayOfWeek;
 import java.time.LocalDateTime;
+import java.util.List;
 
 import javax.inject.Inject;
 import javax.transaction.Transactional;
@@ -21,7 +22,6 @@ import io.oasp.gastronomy.restaurant.offermanagement.dataaccess.api.dao.OfferDao
 import io.oasp.gastronomy.restaurant.offermanagement.dataaccess.api.dao.SpecialDao;
 import io.oasp.gastronomy.restaurant.offermanagement.dataaccess.api.embedded.WeeklyPeriodEmbeddable;
 import io.oasp.gastronomy.restaurant.offermanagement.logic.api.to.SpecialSearchCriteriaTo;
-import io.oasp.module.jpa.common.api.to.PaginatedListTo;
 import io.oasp.module.test.common.base.ComponentTest;
 
 /**
@@ -68,7 +68,7 @@ public class SpecialDaoTest extends ComponentTest {
     SpecialEntity saved = this.dao.save(toSave);
 
     // when
-    PaginatedListTo<SpecialEntity> found = this.dao.findBySearchCriteria(criteria);
+    List<SpecialEntity> found = this.dao.findBySearchCriteria(criteria);
 
     // then
     assertNotNull(found);

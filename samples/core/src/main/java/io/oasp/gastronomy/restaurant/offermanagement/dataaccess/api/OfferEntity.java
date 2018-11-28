@@ -1,10 +1,13 @@
 package io.oasp.gastronomy.restaurant.offermanagement.dataaccess.api;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.persistence.UniqueConstraint;
@@ -35,6 +38,26 @@ public class OfferEntity extends MenuItemEntity implements Offer {
   private SideDishEntity sideDish;
 
   private OfferState state;
+
+  private List<SpecialEntity> specialOffers;
+
+  /**
+   * @return specialOffers
+   */
+  @OneToMany
+  @JoinColumn(name = "offerId")
+  public List<SpecialEntity> getSpecialOffers() {
+
+    return this.specialOffers;
+  }
+
+  /**
+   * @param specialOffers new value of {@link #getspecialOffers}.
+   */
+  public void setSpecialOffers(List<SpecialEntity> specialOffers) {
+
+    this.specialOffers = specialOffers;
+  }
 
   /**
    * The constructor.

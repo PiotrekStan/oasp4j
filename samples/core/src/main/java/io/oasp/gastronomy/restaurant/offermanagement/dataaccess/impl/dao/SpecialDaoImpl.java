@@ -5,8 +5,11 @@ import static io.oasp.gastronomy.restaurant.offermanagement.common.util.LocalDat
 import static io.oasp.gastronomy.restaurant.offermanagement.common.util.LocalDateUtil.getHour;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import javax.inject.Named;
+
+import org.assertj.core.util.Lists;
 
 import com.querydsl.core.alias.Alias;
 import com.querydsl.core.types.Predicate;
@@ -19,7 +22,6 @@ import io.oasp.gastronomy.restaurant.offermanagement.dataaccess.api.SpecialEntit
 import io.oasp.gastronomy.restaurant.offermanagement.dataaccess.api.dao.OfferDao;
 import io.oasp.gastronomy.restaurant.offermanagement.dataaccess.api.dao.SpecialDao;
 import io.oasp.gastronomy.restaurant.offermanagement.logic.api.to.SpecialSearchCriteriaTo;
-import io.oasp.module.jpa.common.api.to.PaginatedListTo;
 
 /**
  * Implementation of {@link OfferDao}.
@@ -43,7 +45,7 @@ public class SpecialDaoImpl extends ApplicationMasterDataDaoImpl<SpecialEntity> 
   }
 
   @Override
-  public PaginatedListTo<SpecialEntity> findBySearchCriteria(SpecialSearchCriteriaTo criteria) {
+  public List<SpecialEntity> findBySearchCriteria(SpecialSearchCriteriaTo criteria) {
 
     if (criteria != null) {
       SpecialEntity special = Alias.alias(SpecialEntity.class);
@@ -69,10 +71,9 @@ public class SpecialDaoImpl extends ApplicationMasterDataDaoImpl<SpecialEntity> 
         query.where(startDate).where(endDate);
       }
 
-      return findPaginated(criteria, query);
-
+      return query.fetch();
     }
-    return null;
+    return Lists.emptyList();
   }
 
 }
